@@ -99,6 +99,7 @@ const doMutation = function(genome){
         var newGenome = '';
         for (var i = 0; i < genome.length;++i){
             if (Math.floor(Math.random() * MUT_PROB) === 1){
+                //lock in characters if they already match target
                 if (genome[i] !== TARGET[i]){
                     newGenome += ALPHABET[Math.floor(Math.random() * ALPHABET.length)];
                 }
@@ -121,7 +122,7 @@ const evolve = function(){
     var fittest = getSingleFittest(population);
     while (getFitness(fittest) !== OPTIMAL_SCORE){
         numGenerations++;
-        //Fitness function: select best half of generation to survive
+        //Selection function: select best half of generation to survive
         var nextGen = getFittestHalf(population);
         //Crossover: fill generation back to 50 with combinations of fittest genes
         nextGen = doCrossover(nextGen);
